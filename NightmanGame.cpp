@@ -17,15 +17,22 @@ NightmanGame::NightmanGame()
     Cricket_dead = 0;
     Snail_is_Alive = 1;
     McPoyles_Alive = 1;
-    player_hp_ = 100;
+    player_hp_ = 200;
     Charlie_Is_Free = 0;
     Artemis_Is_Free = 0;
+    Nightman_is_Alive = 1;
     Maidens_Free = 0;
     puzzle_is_solved = 0;
 }
 
 void NightmanGame::Start()
 {
+    cout << "Come one, come all to a beautiful game!!\n"
+         << "It's gonna be awesome and some other stuff!!\n"
+         << "Do dee do dee do dee do dee do dee dee do do dee, some other musical stuff!!\n" << endl;
+    cout << "You are playing a text based dungeon adventure game with an It's Always Sunny motif.\n"
+         << "Simply follow the on screen prompts and have a good time!\n" << endl;
+
     while((Charlie_Is_Free == 0)&&(player_hp_ > 0))
     {
         switch(current_room)
@@ -59,8 +66,16 @@ void NightmanGame::Start()
             break;
         case 10:
             MaidenJail();
+            break;
         case 11:
             DennisChamber();
+            break;
+        case 12:
+            NightmanChamber();
+            break;
+        case 13:
+            CharliesCage();
+            break;
         }
     }
     cout << "The game is over.\n";
@@ -69,25 +84,52 @@ void NightmanGame::Start()
 
 void NightmanGame::Tavern()
 {
-    cout << "Sitting in a lively tavern you notice a crusty and highly inebriated\n"
-    << "dwarf shooting dark glances in your direction. After an hour and several\n"
-    << "more pints, the dwarf staggers over to you.\n" << '"' << "You ever "
-    << "heard of the Treasure of the Nightman?" << '"' << "\n"
-    << "Y/N" << endl;
+    cout << "After picking up the latest edition of AKU, the issue with an expose on the Nightman's Treasure.\n"
+         << "Seems there is some lost and priceless treasure in a cave outside of the village.\n"
+         << "Done with your daily reading you head to get a drink.\n" << endl;
+
+    cout << "Sitting in a lively tavern you notice a crusty and highly inebriated dwarf shooting dark glances\n"
+         << "in your direction. After an hour and several more pints, the dwarf staggers over to you.\n"
+         << '"' << "You know of the Nightman's Treasure?\n" << '"' << "Y/N\n" << endl;
 
     PlayerAnswer();
 
-    if(player_answer == 'Y')
+    if(player_answer_ == 'Y')
     {
-        current_room = 2;
+        cout << "Even though you clearly said yes, the dwarf or troll, whatever the hell he is, begins telling you\n"
+             << "of the Nightman's Treasure. The details seem half nonsense, half gibberish. It's a mess really.\n"
+             << "You find yourself wanting to extricate yourself from the situation, but it's then you notice his\n"
+             << "bloody club. Honestly, it looks like this thing has killed more people than the plague.\n"
+             << "What you can gather of this wild tale is that in a forlorn cave outside of the village there is a\n"
+             << "treasure or maybe person of some kind, that part is vague. You may or may not have to fight what\n"
+             << "may or may not be monsters. After he finishes word vomiting he actually hands you the bashing stick!\n"
+             << "And just when you're thinking yes! I can bash him and get out this, you notice in his other hand is\n"
+             << "an even bigger, bloodier bashing stick. He asks you, " << '"' << "Will you attempt to solve this quest?"
+             << '"' << "\nY/N\n" << endl;
+
+        PlayerAnswer();
+
+        switch(player_answer_)
+        {
+        case 'Y':
+            cout << "Here we go.\n" << endl;
+            current_room = 2;
+            break;
+        case 'N':
+            cout << "Dwarf:" << '"' << "What? You're an idiot, why am I talking to you?" << '"' << "\n"
+                << "The dwarf then pulls out his hammer and proceeds to bash you like a rat.\n"
+                << "Great. Smart move. Now you're dead. You know, next time someone asks you about\n"
+                << "the Nightman's Treasure, don't ask questions. Just say, " << '"' << "Yes." << '"' << "\n" << endl;
+
+            PlayAgain();
+        }
     }
     else
     {
-        cout << "Dwarf:" << '"' << "What? You're an idiot, why am I talking to you?"
-        << '"' << "\nThe dwarf then pulls out his hammer and proceeds to bash you like"
-        << " a rat.\n" << "Great. Smart move. Now you're dead. You know, next time\n"
-        << "someone asks you about the Nightman's Treasure, don't ask questions\n"
-        << "just say, 'Yes'" << "\n" << endl;
+        cout << "Dwarf:" << '"' << "What? You're an idiot, why am I talking to you?" << '"' << "\n"
+             << "The dwarf then pulls out his hammer and proceeds to bash you like a rat.\n"
+             << "Great. Smart move. Now you're dead. You know, next time someone asks you about\n"
+             << "the Nightman's Treasure, don't ask questions. Just say, " << '"' << "Yes." << '"' << "\n" << endl;
 
         PlayAgain();
     }
@@ -95,36 +137,37 @@ void NightmanGame::Tavern()
 
 void NightmanGame::CaveEntrance()
 {
-    cout << "You find yourself standing at the entrance to an ominous and\n"
-    << "foreboding cave. The entrance is littered with bones and signs that are\n"
-    << "barely legible. You notice a few odd items strewn about. There is a sword,\n"
-    << "half buried in the dirt. Nearby is a torch and right next to the entrance is\n"
-    << "a half baked chicken in denim shorts, a denim chicken." << "\n" << endl;
-
-    cout << "Would you like to pick up the sword?\nY/N\n" << endl;
-
-    PlayerAnswer();
-
-    if(player_answer == 'Y')
-    {
-        cout << "Think you're so smart, picking up the big bad sword. Well guess what?\n"
-             << "You sliced an artery digging it out. You're dead.\n" << endl;
-
-        PlayAgain();
-
-    }
-    else
-    {
-        cout << "Moving on.\n" << endl;
-    }
-
     if(player_has_torch == 0)
     {
+        cout << "You find yourself standing at the entrance to an ominous and\n"
+             << "foreboding cave. The entrance is littered with bones and signs that are\n"
+             << "barely legible. You notice a few odd items strewn about. There is a sword,\n"
+             << "half buried in the dirt. Nearby is a torch and right next to the entrance is\n"
+             << "a half baked chicken in denim shorts, a denim chicken.\n" << endl;
+
+        cout << "Would you like to pick up the sword?\nY/N\n" << endl;
+
+        PlayerAnswer();
+
+        if(player_answer_ == 'Y')
+        {
+            cout << "Think you're so smart, picking up the big bad sword. Well guess what?\n"
+                 << "You sliced an artery digging it out. You're dead.\n" << endl;
+
+            PlayAgain();
+
+        }
+        else
+        {
+            cout << "Yeah, makes sense. Blades aren't really your style. I mean being a part of the AKU.\n"
+                 << "You're a born smasher, clearly.\n" << endl;
+        }
+
         cout << "Would you like to pick up the torch?\nY/N\n" << endl;
 
         PlayerAnswer();
 
-        if(player_answer == 'Y')
+        if(player_answer_ == 'Y')
         {
             player_has_torch =1;
 
@@ -140,7 +183,7 @@ void NightmanGame::CaveEntrance()
     }
     else
     {
-        cout << "You have the torch already.\n" << endl;
+        cout << "You have the torch already. Why are you here? Oh yeahhhh, the CHICKEN.\n" << endl;
     }
 
     if(player_has_DC == 0)
@@ -149,27 +192,27 @@ void NightmanGame::CaveEntrance()
 
         PlayerAnswer();
 
-        if(player_answer == 'Y')
+        if(player_answer_ == 'Y')
         {
             player_has_DC = 1;
 
-            cout << "Hang on. Denim Chicken?\n";
+            cout << "Hang on. Denim Chicken?\n" << endl;
         }
         else
         {
-            cout << "Hmm, I don't know man, Denim Chicken though.\n";
+            cout << "Hmm, I don't know man, Denim Chicken though.\n" << endl;
         }
     }
     else
     {
-        cout << "Oh, fret not. You got the denim chicken.\n";
+        cout << "Oh, fret not. You got the denim chicken. Seriously though, now, why are you here.\n";
     }
 
     cout << "So you have made your preparations. Would you like to enter the cave?\nY/N\n" << endl;
 
     PlayerAnswer();
 
-    if(player_answer == 'Y')
+    if(player_answer_ == 'Y')
     {
         current_room = 3;
     }
@@ -190,7 +233,7 @@ void NightmanGame::ChamberRoom()
              << "torch. Good thinking. So, looking around, you see you are in the opening room\n"
              << "of the cave. There is two openings to the left and right. Above the left entrance\n"
              << "you see a poorly spelled sign reading 'Herr leyes Criket'. On the right it reads\n"
-             << "Bird Wif Teeth. Weird.\n" << endl;
+             << "'Bird Wif Teeth'. Weird.\n" << endl;
 
         if(player_has_glue == 0)
         {
@@ -200,21 +243,19 @@ void NightmanGame::ChamberRoom()
 
             PlayerAnswer();
 
-            if(player_answer == 'Y')
+            if(player_answer_ == 'Y')
             {
                 player_has_glue = 1;
 
                 cout << "Sweet, bro. What's a little glue between friends?\n"
                      << "You now have a bottle of glue.\n" << endl;
-
-
             }
             else
             {
                 player_has_glue = 0;
                 cout << "I see someone is afraid to party. You have no glue.\n" << endl;
             }
-            }
+        }
         else
         {
             cout << "Well you're back in the chamber room and the glue is gone.\n" << endl;
@@ -222,9 +263,9 @@ void NightmanGame::ChamberRoom()
 
         cout << "Choose which room you'd like to enter?\nC for Cricket's Chamber or B for Bird Tunnel.\n";
 
-        player_answer = toupper(reader.readChar("CBcb"));
+        player_answer_ = toupper(reader.readChar("CBcb"));
 
-        if(player_answer == 'C')
+        if(player_answer_ == 'C')
         {
             current_room = 4;
         }
@@ -236,11 +277,11 @@ void NightmanGame::ChamberRoom()
     else
     {
         cout << "As you walk further into the chamber you realize it is dark. So turning around\n"
-             << "you head back out and hit your head pretty hard.\n";
+             << "you head back out and hit your head pretty hard.\n" << endl;
 
         player_hp_ = player_hp_ - 10;
 
-        cout << "Player Health: " << player_hp_ << endl;
+        cout << "Player HP: " << player_hp_ << "\n" <<endl;
 
         current_room = 2;
     }
@@ -258,14 +299,23 @@ void NightmanGame::BirdTunnel()
 
         PlayerAnswer();
 
-        if(player_answer == 'Y')
+        if((player_answer_ == 'Y')&&(player_has_shiv == 0))
         {
-            cout << "Oh sweet bro a stick with rope. With a pointed object, you could have a spear.\n" << endl;
+            cout << "Oh sweet bro a stick with rope. With a knife... or shiv, you could have a spear.\n" << endl;
+
             player_has_stick = 1;
+        }
+        else if((player_answer_ == 'Y')&&(player_has_shiv == 1))
+        {
+            player_has_stick = 1;
+            player_has_spear = 1;
+
+            cout << "Yeah bro sweet!! With your shiv, this rope and stick will make a bad ass spear!!.\n"
+                 << "Someone could get totally blasted in the throat with this thing!!\n" << endl;
         }
         else
         {
-            cout << "Well, no stick for you.\n" << endl;
+            cout << "Geez, I dunno. These decisions you make, they just like get me up to here with it.\n" << endl;
         }
     }
     else
@@ -280,10 +330,11 @@ void NightmanGame::BirdTunnel()
 
         PlayerAnswer();
 
-        if(player_answer == 'Y')
+        if(player_answer_ == 'Y')
         {
-            cout << "Oh yeah! Totally sick throwing star for karate!\n" << endl;
             player_has_star = 1;
+
+            cout << "Oh yeah! Totally sick throwing star for martial arts style activity!\n" << endl;
         }
         else
         {
@@ -297,15 +348,15 @@ void NightmanGame::BirdTunnel()
 
     cout << "Getting close to the sound you see what looks like a giant bird. Just staring at you.\n"
          << "The bird lady starts squawking and you just look at her and you're just like,\n" << '"'
-         << "Shut up bird" << '"' << "\n" << endl;
+         << "Shut up bird." << '"' << "\n" << endl;
 
-    cout << "After The bird shuts up, you see three exits. Pressing A will take you to Artemis's Bin.\n"
-         << "Pressing M will take you to the McPoyle Chamber and pressing C will take you back to the\n"
-         << "Chamber Room.\n" << endl;
+    cout << "After The bird shuts up, you see three exits.\n"
+         << "Pressing A will take you to Artemis's Bin. Pressing M will take you to the McPoyle Chamber and\n"
+         << "pressing C will take you back to the Chamber Room.\n" << endl;
 
-     player_answer = toupper(reader.readChar("AMCamc"));
+     player_answer_ = toupper(reader.readChar("AMCamc"));
 
-     switch(player_answer)
+     switch(player_answer_)
      {
      case 'A':
         current_room = 6;
@@ -334,40 +385,48 @@ void NightmanGame::CricketRoom()
 
             PlayerAnswer();
 
-            if(player_answer == 'Y')
+            if(player_answer_ == 'Y')
             {
                 cout << "Being a generous egg, you hand over the glue to Crick's. Big mistake. After several prolonged\n"
-                     << "pulls on the glue, Cricket goes into a glue frenzy. You are bashed like a rat with his sweet\n"
-                     << "steel drums.\n" << endl;
+                     << "pulls on the glue, Cricket goes into a glue frenzy.\n" << endl;
 
-                PlayAgain();
-            }
-            else
-            {
-                cout << "With as much indignation as you can muster you say," << '"' << "Shut up street rat" << '"'
-                     << "\n" << "Cricket lunges to attack, but without glue, let's be honest. He is a street urchin\n"
-                     << "Crick's drops a shiv he was carrying.\nDo you pick it up?\nY/N\n";
+                enemy_hp_ = 500;
 
-                PlayerAnswer();
+                fight_outcome_ = StartFight(3);
 
-                if(player_answer == 'Y')
+                if(fight_outcome_ == 'W')
                 {
-                    cout << "You have a shiv!\n";
-                    player_has_shiv = 1;
+                    Cricket_dead = 1;
+
+                    CricksIsOut();
                 }
                 else
                 {
-                    cout << "Dumb choice. You're taking the shiv.\n";
-                    player_has_shiv = 1;
+                    cout << "You are bashed like a rat with Crick's sweet steel drums.\n" << endl;
+
+                    PlayAgain();
                 }
+            }
+            else
+            {
+                cout << "With as much indignation as you can muster you say, " << '"' << "Shut up street rat" << '"'
+                     << "\n" << "Cricket lunges to attack, but without glue, let's be honest. He is a street urchin.\n"
+                     << endl;
 
-                cout << "Press C to go back to the Chamber Room.\n" << endl;
+                enemy_hp_ = 25;
+                enemy_damage_ = 1;
 
-                player_answer = toupper(reader.readChar("Cc"));
+                fight_outcome_ = StartFight(3);
 
-                if(player_answer == 'C')
+                switch(fight_outcome_)
                 {
-                    current_room = 3;
+                case 'W':
+                    CricksIsOut();
+                    break;
+                case 'L':
+                    cout << "How in the hell did that happen.\n" << endl;
+                    PlayAgain();
+                    break;
                 }
             }
         }
@@ -377,9 +436,9 @@ void NightmanGame::CricketRoom()
                  << " and come back later with something a little more interesting.\nPress C to go back to the Chamber"
                  << " Room\n" << endl;
 
-            player_answer = toupper(reader.readChar("Cc"));
+            player_answer_ = toupper(reader.readChar("Cc"));
 
-            if(player_answer == 'C')
+            if(player_answer_ == 'C')
             {
                 current_room = 3;
             }
@@ -387,14 +446,70 @@ void NightmanGame::CricketRoom()
     }
     else
     {
-        cout << "Dude, Cricks is already unconscious or dead, who cares, but the point is. You got his shiv and this\n"
-             << "place is just dogs and a urine soaked street rat.\nPress C to go back to the Chamber Room.\n" << endl;
-
-        player_answer = toupper(reader.readChar("Cc"));
-
-        if(player_answer == 'C')
+        //fix for dropped shiv
+        if(player_has_shiv == 1)
         {
-            current_room = 3;
+            cout << "Dude, Cricks is already unconscious or dead, who cares, but the point is. You got his shiv and this\n"
+                 << "place is just dogs and a urine soaked street rat.\nPress C to go back to the Chamber Room.\n" << endl;
+
+            player_answer_ = toupper(reader.readChar("Cc"));
+
+            if(player_answer_ == 'C')
+            {
+                current_room = 3;
+            }
+        }
+        else
+        {
+            cout << "Oh now do you want the shiv?\nY/N\n" << endl;
+
+            player_answer_ = PlayerAnswer();
+
+            if((player_answer_ == 'Y')&&(player_has_stick == 0))
+            {
+                player_has_shiv = 1;
+
+                cout << "Finally.\n" << endl;
+
+                cout << "Time to leave this dump. Press C to go back to the Chamber Room.\n" << endl;
+
+                player_answer_ = toupper(reader.readChar("Cc"));
+
+                if(player_answer_ == 'C')
+                {
+                    current_room = 3;
+                }
+            }
+            else if((player_answer_ == 'Y')&&(player_has_stick == 1))
+            {
+                player_has_shiv = 1;
+                player_has_spear = 1;
+
+                cout << "Yeah bro sweet!! With your shiv, this rope and stick will make a bad ass spear!!.\n"
+                     << "Someone could get totally blasted in the throat with this thing!!\n" << endl;
+
+                cout << "Time to leave this dump. Press C to go back to the Chamber Room.\n" << endl;
+
+                player_answer_ = toupper(reader.readChar("Cc"));
+
+                if(player_answer_ == 'C')
+                {
+                    current_room = 3;
+                }
+            }
+            else
+            {
+                cout << "Whyyyyyyy?????\n" << endl;
+
+                cout << "Time to leave this dump. Press C to go back to the Chamber Room.\n" << endl;
+
+                player_answer_ = toupper(reader.readChar("Cc"));
+
+                if(player_answer_ == 'C')
+                {
+                    current_room = 3;
+                }
+            }
         }
     }
 }
@@ -413,14 +528,14 @@ void NightmanGame::ArtemisBin()
 
         PlayerAnswer();
 
-        if(player_answer == 'Y')
+        if(player_answer_ == 'Y')
         {
-            cout << '"' << "You want some salt to go with that sweet sugar," << '"' << "She purrs at you.\n"
+            cout << '"' << "You want some salt to go with that sweet sugar," << '"' << " She purrs at you.\n"
                  << "Y/N\n" << endl;
 
             PlayerAnswer();
 
-            if(player_answer == 'Y')
+            if(player_answer_ == 'Y')
             {
                 cout << "Right on bro you got some salt.\n" << endl;
                 player_has_salt = 1;
@@ -436,7 +551,14 @@ void NightmanGame::ArtemisBin()
             cout << "Fine whateves, beat feet stink meat.\n" << endl;
         }
 
-        cout << "Change room.\n";
+        cout << "Time to leave again. Press B to go back to the Bird Tunnel.\n" << endl;
+
+        player_answer_ = toupper(reader.readChar("Bb"));
+
+        if(player_answer_ == 'B')
+        {
+            current_room = 5;
+        }
     }
     else
     {
@@ -453,7 +575,7 @@ void NightmanGame::ArtemisBin()
 
             PlayerAnswer();
 
-            if(player_answer == 'Y')
+            if(player_answer_ == 'Y')
             {
                 cout << "got salt.\n" << endl;
             }
@@ -465,9 +587,9 @@ void NightmanGame::ArtemisBin()
 
         cout << "Time to leave again. Press B to go back to the Bird Tunnel.\n" << endl;
 
-        player_answer = toupper(reader.readChar("Bb"));
+        player_answer_ = toupper(reader.readChar("Bb"));
 
-        if(player_answer == 'B')
+        if(player_answer_ == 'B')
         {
             current_room = 5;
         }
@@ -486,46 +608,15 @@ void NightmanGame::McPoyleChamber()
         cout << "They both stare at you for what feels like an eon. Finally the one with the eye patch speaks.\n" << endl;
 
         cout << '"' << "Here's the deal turkey. You walked into the wrong room," << '"' << " Liam bellows.\n" << endl;
+    }
+    else
+    {
+        cout << "The McPoyle's limp lifeless bodies are really stinking up the place. Better get a move on.\n"
+             << "Press B for Bird Tunnel, J for Maiden Jail or S for Snail Trail.\n" << endl;
 
-        if((player_has_star == 1)&&(player_has_spear == 1))
-        {
-            cout << "The brothers attack, but you had the good foresight to bring some serious weaponry.\n"
-                 << "You throw the spear first, instantly killing Ryan. Liam goes to attack next but you throw\n"
-                 << "the star and it takes out his only good eye. He stumbles around and falls off his post.\n"
-                 << "In the fall his neck breaks.\n" << endl;
+        player_answer_ = toupper(reader.readChar("BbJjSs"));
 
-                 McPoyles_Alive = 0;
-        }
-        else if((player_has_star == 1)&&(player_has_spear == 0))
-        {
-            cout << "The brothers move to attack, but you thsnkfully brought that throwing star. Hurling it with all\n"
-                 << "your might, it takes out Liam's good eye. He falls off his platform and breaks his neck.\n"
-                 << '"' << "You killed Liam!!" << '"' << " Ryan screams and moves to attack.\n" << endl;
-
-            StartCombat();
-        }
-        else if((player_has_star == 0)&&(player_has_spear == 1))
-        {
-            cout << "When the brothers go to attack, you throw your spear. Hitting Ryan square in the throat there\n"
-                 << "an arterial spray that paints the nearby walls red. Liam, enraged, comes snarling toward you.\n"
-                 << endl;
-
-            StartCombat();
-        }
-        else
-        {
-            //figure out what to do about fighting both.
-
-            StartCombat();
-        }
-
-        McPoyles_Alive = 0;
-
-        cout << "You have defeated the McPoyle's.\n" << "Press B for Bird Tunnel, J for Maiden Jail or S for Snail Trail.\n" << endl;
-
-        player_answer = toupper(reader.readChar("BbJjSs"));
-
-        switch(player_answer)
+        switch(player_answer_)
         {
         case 'B':
             current_room = 5;
@@ -538,14 +629,21 @@ void NightmanGame::McPoyleChamber()
             break;
         }
     }
-    else
+
+    if((player_has_star == 1)&&(player_has_spear == 1))
     {
-        cout << "The McPoyle's limp lifeless bodies are really stinking up the place. Better get a move on.\n"
-             << "Press B for Bird Tunnel, J for Maiden Jail or S for Snail Trail.\n" << endl;
+        cout << "The brothers attack, but you had the good foresight to bring some serious weaponry.\n"
+             << "You throw the spear first, instantly killing Ryan. Liam goes to attack next but you throw\n"
+             << "the star and it takes out his only good eye. He stumbles around and falls off his post.\n"
+             << "In the fall his neck breaks.\n" << endl;
 
-        player_answer = toupper(reader.readChar("BbJjSs"));
+        McPoyles_Alive = 0;
 
-        switch(player_answer)
+        cout << "You have defeated the McPoyle's.\n" << "Press B for Bird Tunnel, J for Maiden Jail or S for Snail Trail.\n" << endl;
+
+        player_answer_ = toupper(reader.readChar("BbJjSs"));
+
+        switch(player_answer_)
         {
         case 'B':
             current_room = 5;
@@ -556,6 +654,102 @@ void NightmanGame::McPoyleChamber()
         case 'S':
             current_room = 9;
             break;
+        }
+    }
+    else if((player_has_star == 1)&&(player_has_spear == 0))
+    {
+        cout << "The brothers move to attack, but you thankfully brought that throwing star. Hurling it with all\n"
+             << "your might, it takes out Liam's good eye. He falls off his platform and breaks his neck.\n"
+             << '"' << "You killed Liam!!" << '"' << " Ryan screams and moves to attack.\n" << endl;
+
+        fight_outcome_ = StartFight(1);
+
+        if(fight_outcome_ == 'W')
+        {
+            McPoyles_Alive = 0;
+
+            cout << "You have defeated the McPoyle's.\n" << "Press B for Bird Tunnel, J for Maiden Jail or S for Snail Trail.\n" << endl;
+
+            player_answer_ = toupper(reader.readChar("BbJjSs"));
+
+            switch(player_answer_)
+            {
+            case 'B':
+                current_room = 5;
+                break;
+            case 'J':
+                current_room = 8;
+                break;
+            case 'S':
+                current_room = 9;
+                break;
+            }
+        }
+        else
+        {
+            PlayAgain();
+        }
+     }
+    else if((player_has_star == 0)&&(player_has_spear == 1))
+    {
+        cout << "When the brothers go to attack, you throw your spear. Hitting Ryan square in the throat there\n"
+             << "an arterial spray that paints the nearby walls red. Liam, enraged, comes snarling toward you.\n"
+             << endl;
+
+        fight_outcome_ = StartFight(2);
+
+        if(fight_outcome_ == 'W')
+        {
+            McPoyles_Alive = 0;
+
+            cout << "You have defeated the McPoyle's.\n" << "Press B for Bird Tunnel, J for Maiden Jail or S for Snail Trail.\n" << endl;
+
+            player_answer_ = toupper(reader.readChar("BbJjSs"));
+
+            switch(player_answer_)
+            {
+            case 'B':
+                current_room = 5;
+                break;
+            case 'J':
+                current_room = 8;
+                break;
+            case 'S':
+                current_room = 9;
+                break;
+            }
+        }
+        else
+        {
+            PlayAgain();
+        }
+    }
+    else
+    {
+        cout << "Ryan steps forward first.\n" << endl;
+
+        fight_outcome_ = StartFight(1);
+
+        if(fight_outcome_ == 'W')
+        {
+            cout << "With Ryan's broken body laying at your feet. Liam lunges toward you.\n" << endl;
+
+            fight_outcome_ = StartFight(2);
+
+            if(fight_outcome_ == 'W')
+            {
+                McPoyles_Alive = 0;
+
+                cout << "You have defeated the McPoyle's.\n" << endl;
+            }
+            else
+            {
+                PlayAgain();
+            }
+        }
+        else
+        {
+            PlayAgain();
         }
     }
 }
@@ -564,17 +758,25 @@ void NightmanGame::SnailTrail()
 {
     if(Snail_is_Alive == 1)
     {
-        cout << "Description for snail trail.\n" << endl;
+        cout << "It smells pathetic in here. That's not even a smell, but it is quite literally the only thing you can think.\n"
+             << "Gail the Snail is here. The garbage pail cousin herself. Imagine if a turd grew to human size, took on a vaguely\n"
+             << "human form and started to obnoxiously speak. That's Gail. Thats's the Snail.\n" << endl;
 
         if(player_has_salt == 1)
         {
-            cout << "Descrip for immediate salting.\n" << endl;
+            Snail_is_Alive = 0;
 
-            cout << "She salted.\n" << endl;
+            cout << "Thankfully you saved you trash witch. That was a good call. Cause now you can use that salt and\n"
+                 << "salt this damn snail.\n" << endl;
 
-            player_answer = toupper(reader.readChar("MmIi"));
+            cout << "The Snail slithers away to die a salty death. I get it. You don't feel good about yourself, you salted\n"
+                 << "a person. No one ever wants to have to salt another human being.\n" << endl;
 
-            switch(player_answer)
+            cout << "Time to move on. Press M to go back or I to go forward.\n" << endl;
+
+            player_answer_ = toupper(reader.readChar("MmIi"));
+
+            switch(player_answer_)
             {
             case 'M':
                 current_room = 7;
@@ -586,22 +788,32 @@ void NightmanGame::SnailTrail()
         }
         else
         {
-            cout << "Combat with snail.\n" << endl;
+            cout << "There is absolutely no reasoning with this one. Prepare for battle.\n" << endl;
 
-            StartCombat();
+            fight_outcome_ = StartFight(4);
 
-            cout << "Next room.\n" << endl;
-
-            player_answer =toupper(reader.readChar("MmIi"));
-
-            switch(player_answer)
+            if(fight_outcome_ == 'W')
             {
-            case 'M':
-                current_room = 7;
-                break;
-            case 'I':
-                current_room = 11;
-                break;
+                Snail_is_Alive = 0;
+
+                cout << "With the Snail completely trashed and stomped out, it is time for you to move one.\n"
+                     << "Press M for McPoyle's Chamber or I for the Implication Room.\n" << endl;
+
+                player_answer_ = toupper(reader.readChar("MmIi"));
+
+                switch(player_answer_)
+                {
+                case 'M':
+                    current_room = 7;
+                    break;
+                case 'I':
+                    current_room = 11;
+                    break;
+                }
+            }
+            else
+            {
+                PlayAgain();
             }
         }
     }
@@ -610,9 +822,9 @@ void NightmanGame::SnailTrail()
         cout << "You have already salted the snail. It's time to bounce.\n"
              << "Press M for McPoyle Chamber or I for The Implication Room.\n" << endl;
 
-        player_answer =toupper(reader.readChar("MmIi"));
+        player_answer_ = toupper(reader.readChar("MmIi"));
 
-        switch(player_answer)
+        switch(player_answer_)
         {
         case 'M':
             current_room = 7;
@@ -638,7 +850,7 @@ void NightmanGame::MaidenJail()
 
         PlayerAnswer();
 
-        if(player_answer == 'Y')
+        if(player_answer_ == 'Y')
         {
             cout << "You make your greetings to the captives. Jackie is too disheveled to respond but the Waitress seems talkative.\n"
                  << '"' << "Hey I know you, " << '"' << "She says.\n" << endl;
@@ -652,10 +864,11 @@ void NightmanGame::MaidenJail()
 
         PlayerAnswer();
 
-        if(player_answer == 'Y')
+        if(player_answer_ == 'Y')
         {
             Maidens_Free = 1;
-            player_has_catfood =1;
+
+            player_has_catfood = 1;
 
             cout << "The captives are free. The Waitress spits out a large glob of phlegm at your feet and leaves. But\n"
                  << "Jackie thanks you with her last can of cat food.\n" << endl;
@@ -670,9 +883,9 @@ void NightmanGame::MaidenJail()
 
         cout << "Time to move on. Press M for McPoyle Chamber or I for Implication Room.\n" << endl;
 
-        player_answer = toupper(reader.readChar("MmIi"));
+        player_answer_ = toupper(reader.readChar("MmIi"));
 
-        switch(player_answer)
+        switch(player_answer_)
         {
         case 'M':
             current_room = 7;
@@ -687,9 +900,9 @@ void NightmanGame::MaidenJail()
         cout << "You have already freed the maiden's in the jail. Time to move on.\n"
              << "Press M for McPoyle's Chamber and I for Implication Room.\n" << endl;
 
-        player_answer = toupper(reader.readChar("MmIi"));
+        player_answer_ = toupper(reader.readChar("MmIi"));
 
-        switch(player_answer)
+        switch(player_answer_)
         {
         case 'M':
             current_room = 7;
@@ -724,17 +937,20 @@ void NightmanGame::DennisChamber()
 
         if(player_answer_string == "a five star man")
         {
+            player_has_rumham = 1;
+
             puzzle_is_solved = 1;
 
-            cout << "Solved the riddle.\n" << endl;
+            cout << "Dennis weeps silently." << '"' << "Thank you" << '"' << " He whispers.\n"
+                 << "He shuffles away, possibly vindicated. You have no clue what just happened.\n" << endl;
         }
         else
         {
             cout << "Wrong.\nWould you like to try again?\nY/N\n" << endl;
 
-            player_answer = toupper(reader.readChar("YyNn"));
+            player_answer_ = toupper(reader.readChar("YyNn"));
 
-            if(player_answer == 'Y')
+            if(player_answer_ == 'Y')
             {
                 Puzzle();
             }
@@ -744,18 +960,17 @@ void NightmanGame::DennisChamber()
             }
         }
 
-        cout << "move.\n" << endl;
+        cout << "Press J for the Maiden Jail, N for the Nightman's Chamber or S for the Snail Trail.\n" << endl;
 
-        player_answer = toupper(reader.readChar("JjNnSs"));
+        player_answer_ = toupper(reader.readChar("JjNnSs"));
 
-        switch(player_answer)
+        switch(player_answer_)
         {
         case 'J':
             current_room = 9;
             break;
         case 'N':
-            //current_room = 12;
-            cout << "almost.\n" << endl;
+            current_room = 12;
             break;
         case 'S':
             current_room = 10;
@@ -766,18 +981,17 @@ void NightmanGame::DennisChamber()
     {
         cout << "Puzzle Solved, Dennis gone, you have rum ham.\n" << endl;
 
-        cout << "move.\n" << endl;
+        cout << "Press J for the Maiden Jail, N for the Nightman's Chamber or S for the Snail Trail.\n" << endl;
 
-        player_answer = toupper(reader.readChar("JjNnSs"));
+        player_answer_ = toupper(reader.readChar("JjNnSs"));
 
-        switch(player_answer)
+        switch(player_answer_)
         {
         case 'J':
             current_room = 9;
             break;
         case 'N':
-            //current_room = 12;
-            cout << "almost.\n" << endl;
+            current_room = 12;
             break;
         case 'S':
             current_room = 10;
@@ -788,12 +1002,109 @@ void NightmanGame::DennisChamber()
 
 void NightmanGame::NightmanChamber()
 {
+    cout << "Descrip for entering Nightman's Chamber.\n" << endl;
 
+    if(Nightman_is_Alive == 1)
+    {
+        if(player_has_rumham == 1)
+        {
+            cout << "You give the rumham to the Nightman. But it is like way poisoned. I mean it was\n"
+                 << "from Dennis, so. He eats it and dies.\n" << endl;
+
+            Nightman_is_Alive = 0;
+
+            cout << "Approach Charlie's Cage?\nY/N\n" << endl;
+
+            PlayerAnswer();
+
+            if(player_answer_ == 'Y')
+            {
+                current_room = 13;
+            }
+            else
+            {
+                current_room = 11;
+            }
+        }
+        else
+        {
+            cout << "You try to talk Nightman down. No Luck. He stands in some sort of pseudo karate stance.\n"
+                 << "Prepare for combat.\n" <<endl;
+
+            fight_outcome_ = StartFight(5);
+
+            if(fight_outcome_ == 'W')
+            {
+                Nightman_is_Alive = 0;
+
+                cout << "You've lived as Dayman, fought the Nightman and you have totally conquered him, man.\n" << endl;
+
+                cout << "Approach Charlie's Cage?\nY/N\n" << endl;
+
+                PlayerAnswer();
+
+                if(player_answer_ == 'Y')
+                {
+                    current_room = 13;
+                }
+                else
+                {
+                    cout << "Charlie yells out, " << '"' << "Hey, dude come on let me out man!!\n" << endl;
+
+                    cout << "Just then you hear the familiar thud of a troll. Looks like you are now paying the toll.\n"
+                         << "Frank has bashed you again.\n" << endl;
+
+                    PlayAgain();
+                }
+            }
+            else
+            {
+                PlayAgain();
+            }
+        }
+    }
+    else
+    {
+        cout << "Nightman is already dead.\n";cout << "Approach Charlie's Cage?\nY/N\n" << endl;
+
+        PlayerAnswer();
+
+        if(player_answer_ == 'Y')
+        {
+            current_room = 13;
+        }
+        else
+        {
+            cout << "Charlie yells out, " << '"' << "Hey, dude come on let me out man!!\n" << endl;
+
+            cout << "Just then you hear the familiar thud of a troll. Looks like you are now paying the toll.\n"
+                 << "Frank has bashed you again.\n" << endl;
+
+            PlayAgain();
+        }
+     }
 }
 
 void NightmanGame::CharliesCage()
 {
     cout << "Charlie's Cage. Open?\nY/N\n";
+
+    PlayerAnswer();
+
+    if(player_answer_ == 'Y')
+    {
+        cout << "If you have Denim Chicken, Charlie leaves with you.\n" << endl;
+        cout << "You win.\n" << endl;
+
+        PlayAgain();
+    }
+    else
+    {
+        cout << "You won't let Charlie out. Lo and behold look who shows up. It's Frank. And you guessed it.\n"
+             << "Bashed like a rat.\n" << endl;
+
+        PlayAgain();
+    }
 
 }
 
@@ -802,63 +1113,36 @@ void NightmanGame::ReturntoTown()
 
 }
 
-void NightmanGame::StartCombat()
-{
-    enemy_hp_ = 100;
-
-    do
-	{
-		cout << "would you like to hit?\n";
-
-        PlayerAnswer();
-
-        if(player_answer == 'Y')
-        {
-            cout << "You hit the enemy.\n";
-            enemy_hp_ -= 25;
-            cout << "enemy health is: " << enemy_hp_ << endl;
-        }
-        else
-        {
-            cout << "Enemy hits you.\n";
-            player_hp_ =-25;
-            cout << "player hp is: " << player_hp_ << endl;
-        }
-    }
-    while((player_hp_ > 0)&&(enemy_hp_ > 0));
-
-	if(player_hp_ > 0)
-	{
-		cout << "good job you won\n" << endl;
-	}
-	else
-	{
-		cout << "dang you died\n" << endl;
-
-		PlayAgain();
-	}
-}
-
 void NightmanGame::PlayAgain()
 {
     cout << "Would you like to play again?\nY/N\n";
 
     PlayerAnswer();
 
-    if(player_answer == 'Y')
+    if(player_answer_ == 'Y')
     {
-     Start();
+     NightmanGame Game;
+     Game.Start();
     }
     else
-    cout << "Game Over.\n";
-    GameOver();
+    {
+        GameOver();
+    }
 }
 
 char NightmanGame::PlayerAnswer()
 {
-	player_answer = toupper(reader.readChar("YNyn"));
+	player_answer_ = toupper(reader.readChar("YNyn"));
 
-	return player_answer;
+	return player_answer_;
+}
+
+void NightmanGame::GameOver()
+{
+    cout << "They say cream rises to the top. Or not.\n";
+
+    player_hp_ = 0;
+    Charlie_Is_Free = 1;
 }
 
 void NightmanGame::Puzzle()
@@ -877,9 +1161,9 @@ void NightmanGame::Puzzle()
     {
         cout << "Wrong.\nWould you like to try again?\nY/N\n" << endl;
 
-        player_answer = toupper(reader.readChar("YyNn"));
+        PlayerAnswer();
 
-        if(player_answer == 'Y')
+        if(player_answer_ == 'Y')
         {
             //run puzzle function
         }
@@ -890,44 +1174,35 @@ void NightmanGame::Puzzle()
     }
 }
 
-void NightmanGame::GameOver()
-{
-    cout << "They say cream rises to the top. Or not.\n";
-
-    player_hp_ = 0;
-    Charlie_Is_Free = 1;
-}
-
-NightmanGame::Combat::Combat()
-{
-    enemy_hp_ = 150;
-    player_damage_ = 10;
-    enemy_damage_ = 5;
-}
-
-void NightmanGame::Combat::StartFight(int Enemy)
+char NightmanGame::StartFight(int Enemy)
 {
 	switch(Enemy)
 	{
 	case kRyanMcPoyle:
 		enemy_name_ = "Ryan McPoyle";
-		cout << "Descrip about fighting Ryan.\n" << endl;
+		enemy_hp_ = 150;
+		cout << "Ryan steps forward to defend his brother's honor. Your can only wonder why he chose to wear\n"
+             << "just a bathrobe'\n" << endl;
 		break;
 	case kLiamMcPoyle:
 		enemy_name_ = "Liam McPoyle";
-		cout << "Descrip about fighting Liam.\n" << endl;
+		enemy_hp_ = 150;
+		cout << "Liam steps forward to defend his brother's honor. Your can only wonder why he chose to wear\n"
+             << "just a bathrobe'\n" << endl;
 		break;
 	case kCricket:
 		enemy_name_ = "Cricket";
-		cout << "Descrip for fighting Cricket.\n" << endl;
+		cout << "Watch out for this crackhead, he will cut you.\n" << endl;
 		break;
 	case kSnail:
 		enemy_name_ = "Snail";
-		cout << "Descrip for fighting Snail.\n" << endl;
+		enemy_hp_ = 100;
+		cout << "This is your chance. Rid the world of this garbage pail cousin, Gail, once and for all.\n" << endl;
 		break;
 	case kNightman:
 		enemy_name_ = "Nightman";
-		cout << "Descrip for fighting Nightman.\n" << endl;
+		enemy_hp_ = 200;
+		cout << "Hope you thought this through. He has the eyes of a cat.\n" << endl;
 		break;
 	}
 	do
@@ -944,7 +1219,8 @@ void NightmanGame::Combat::StartFight(int Enemy)
 			HitEnemy();
 			break;
 		case 'N':
-			cout << "not yet titties.\n" << endl;
+			cout << "Terrible decision." << enemy_name_ << " hits you instead." << endl;
+			HitPlayer();
 			break;
 		}
 	}
@@ -953,24 +1229,18 @@ void NightmanGame::Combat::StartFight(int Enemy)
 	if(player_hp_ > 0 )
 	{
 		cout << "Dude! You smashed " << enemy_name_ << "'s" << " bitch ass good!\n" << endl;
+
+		return 'W';
 	}
 	else
 	{
 		cout << "Yup, you guessed it. " << enemy_name_ << " smashed you like a rat.\n" << endl;
-	}
+
+		return 'L';
+    }
 }
 
-char Combat::PlayerAnswer()
-{
-    cin >> player_answer_;
-
-    if(player_answer_ == 'Y')
-        return player_answer_;
-    else
-        return player_answer_;
-}
-
-int Combat::RollToHit()
+double NightmanGame::RollToHit()
 {
     dam_mult_ = 0;
 	die_amount_ = ((rand()%6)+1);
@@ -999,7 +1269,7 @@ int Combat::RollToHit()
 	return dam_mult_;
 }
 
-void Combat::HitEnemy()
+void NightmanGame::HitEnemy()
 {
     RollToHit();
 
@@ -1031,7 +1301,7 @@ void Combat::HitEnemy()
     }
 }
 
-void NightmanGame::Combat::HitPlayer()
+void NightmanGame::HitPlayer()
 {
     ShowPlayerHP();
 
@@ -1060,12 +1330,67 @@ void NightmanGame::Combat::HitPlayer()
 	}
 }
 
-void NightmanGame::Combat::ShowPlayerHP()
+void NightmanGame::ShowPlayerHP()
 {
     cout << "Player HP: " << player_hp_ << "\n" << endl;
 }
 
-void NightmanGame::Combat::ShowEnemyHP()
+void NightmanGame::ShowEnemyHP()
 {
     cout << "Enemy HP: " << enemy_hp_ << "\n" << endl;
+}
+
+void NightmanGame::CricksIsOut()
+{
+    cout << "Feel good about yourself? You just beat a street urchin to death or unconscious, whatevs.\n"
+         << "He did drop a shiv tho. Wanna take it?\nY/N\n" << endl;
+
+    PlayerAnswer();
+
+    if((player_answer_ == 'Y')&&(player_has_stick == 1))
+    {
+        player_has_shiv = 1;
+        player_has_spear = 1;
+
+        cout << "Yeah bro sweet!! With your shiv, this rope and stick will make a bad ass spear!!.\n"
+             << "Someone could get totally blasted in the throat with this thing!!\n" << endl;
+
+        cout << "With Cricks out it's time to bounce! Press C to go back to the Chamber Room.\n" << endl;
+
+        player_answer_ = toupper(reader.readChar("Cc"));
+
+        if(player_answer_ == 'C')
+        {
+            current_room = 3;
+        }
+    }
+    else if((player_answer_ == 'Y')&&(player_has_stick == 0))
+    {
+        player_has_shiv = 1;
+
+        cout << "Sweet bro you got a shiv. with a few other handy cave materials you could have some\n"
+             << "kind of awesome throwing atlatl type weapon...\n" << endl;
+
+        cout << "With Cricks out it's time to bounce! Press C to go back to the Chamber Room.\n" << endl;
+
+        player_answer_ = toupper(reader.readChar("Cc"));
+
+        if(player_answer_ == 'C')
+        {
+            current_room = 3;
+        }
+    }
+    else
+    {
+        cout << "Ok let's just leave a sweet shiv on the floor.\n" << endl;
+
+        cout << "With Cricks out it's time to bounce! Press C to go back to the Chamber Room.\n" << endl;
+
+        player_answer_ = toupper(reader.readChar("Cc"));
+
+        if(player_answer_ == 'C')
+        {
+            current_room = 3;
+        }
+    }
 }

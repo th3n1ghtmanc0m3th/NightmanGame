@@ -1,4 +1,6 @@
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 #include "CinReader.h"
 #ifndef Gohner_NightmanGame_H
 #define Gohner_NightmanGame_H
@@ -15,45 +17,26 @@ class NightmanGame
     //this starts the game
     void Start();
 
-    class Combat
-    {
-      public:
-
-        int die_amount_, dam_mult_, enemy_damage_, player_damage_, damage_;
-        string enemy_name_;
-        enum Enemy
-        {
-        kRyanMcPoyle = 1,
-        kLiamMcPoyle = 2,
-        kCricket = 3,
-        kSnail = 4,
-        kNightman = 5
-        };
-
-        Combat();
-
-        void StartFight(int enemy_);
-
-      private:
-
-        char PlayerAnswer();
-        int RollToHit();
-        void HitEnemy();
-        void HitPlayer();
-        void ShowPlayerHP();
-        void ShowEnemyHP();
-    };
-
-
   private:
 
     CinReader reader;
+
+    enum Enemy
+    {
+    kRyanMcPoyle = 1,
+    kLiamMcPoyle = 2,
+    kCricket = 3,
+    kSnail = 4,
+    kNightman = 5
+    };
     int player_hp_;
     int enemy_hp_;
+    int die_amount_;
+    double enemy_damage_, dam_mult_, player_damage_, damage_;
     int current_room;
     int Nightman_Health;
-    char player_answer;
-    string player_answer_string;
+    char player_answer_;
+    char fight_outcome_;
     bool player_has_DC;
     bool player_has_torch;
     bool player_has_glue;
@@ -70,8 +53,11 @@ class NightmanGame
     bool Maidens_Free;
     bool McPoyles_Alive;
     bool Snail_is_Alive;
+    bool Nightman_is_Alive;
     bool puzzle_is_solved;
     bool combat_active_;
+    string player_answer_string;
+    string enemy_name_;
 
     //This function runs the tavern scenario.
     void Tavern();
@@ -124,8 +110,28 @@ class NightmanGame
     //This function runs the puzzle
     void Puzzle();
 
+    //Start upgraded combat system
+    char StartFight(int Enemy);
+
+    //This functions generates a random number (1-6) and has a switch case that assigns your damage multiplier
+    double RollToHit();
+
+    //This functions controls your hit of the enemy
+    void HitEnemy();
+
+    //This function controls the enemy hitting the player
+    void HitPlayer();
+
+    //This function displays players current hp
+    void ShowPlayerHP();
+
+    //This function displays enemy current hp
+    void ShowEnemyHP();
+
     //This function ends the game. maybe,
     void GameOver();
+
+    void CricksIsOut();
 
 };
 
