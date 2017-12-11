@@ -32,7 +32,7 @@ class NightmanGame
     int player_hp_;
     int enemy_hp_;
     int die_amount_;
-    double enemy_damage_, dam_mult_, player_damage_, damage_;
+    double enemy_damage_, dam_mult_, player_damage_;
     int current_room;
     int Nightman_Health;
     char player_answer_;
@@ -131,7 +131,11 @@ class NightmanGame
     //This function ends the game. maybe,
     void GameOver();
 
+    //This function runs the big scenario for Cricks being dead
     void CricksIsOut();
+
+    //Clears the screen
+    void ClearScreen();
 
 };
 

@@ -17,7 +17,7 @@ NightmanGame::NightmanGame()
     Cricket_dead = 0;
     Snail_is_Alive = 1;
     McPoyles_Alive = 1;
-    player_hp_ = 200;
+    player_hp_ = 300;
     Charlie_Is_Free = 0;
     Artemis_Is_Free = 0;
     Nightman_is_Alive = 1;
@@ -347,8 +347,17 @@ void NightmanGame::BirdTunnel()
     }
 
     cout << "Getting close to the sound you see what looks like a giant bird. Just staring at you.\n"
-         << "The bird lady starts squawking and you just look at her and you're just like,\n" << '"'
-         << "Shut up bird." << '"' << "\n" << endl;
+         << "The bird lady starts yammering on. It's unbearable dude. She's talking about the Snail,\n"
+         << "some deranged brothers, Cricket. She's squawking that it's not her fault she's stuck here.\n"
+         << "This just keeps going, with things like, maybe Charlie was right about the glue and cat food,\n"
+         << "she's not a giant bird and those guys are jerks, Frank is using you, watch out for Dennis's ham.\n"
+         << "It's all so much! Finally you snap and yell shut up bird!\n" << endl;
+
+    for(int i = 0; i < 14; i++)
+    {
+        cout << "\n";
+    }
+    cout << endl;
 
     cout << "After The bird shuts up, you see three exits.\n"
          << "Pressing A will take you to Artemis's Bin. Pressing M will take you to the McPoyle Chamber and\n"
@@ -421,6 +430,8 @@ void NightmanGame::CricketRoom()
                 switch(fight_outcome_)
                 {
                 case 'W':
+                    cout << "With his last gasp, maybe, he says, " << '"' << "You don't know what he's up to. "
+                         << '"' << "The troll toll, it's real.\n" << endl;
                     CricksIsOut();
                     break;
                 case 'L':
@@ -1087,14 +1098,22 @@ void NightmanGame::NightmanChamber()
 
 void NightmanGame::CharliesCage()
 {
-    cout << "Charlie's Cage. Open?\nY/N\n";
+    cout << "Well here it is. After all the bashing, street urchins, bird ladies, trash witches, whatever the hell\n"
+         << "the McPoyle's were. You are here standing before Charlie's cage. Will you open?\nY/N\n" << endl;
 
     PlayerAnswer();
 
-    if(player_answer_ == 'Y')
+    if((player_answer_ == 'Y')&&(player_has_catfood == 1))
     {
-        cout << "If you have Denim Chicken, Charlie leaves with you.\n" << endl;
-        cout << "You win.\n" << endl;
+        cout << "Ah dude, see this is great. This why we are gonna work well together. You see some cat food,\n"
+             << "you see a denim chicken, you don't ask questions, you just pick it up.\n" << endl;
+
+        ReturntoTown();
+    }
+    else if((player_answer_ == 'Y')&&(player_has_catfood == 0))
+    {
+        cout << "You free Charlie and Frank shows up. He and Charlie are super hungry. Seeing how you forgot\n"
+             << "to bring cat food, they have to eat you.\n" << endl;
 
         PlayAgain();
     }
@@ -1110,7 +1129,17 @@ void NightmanGame::CharliesCage()
 
 void NightmanGame::ReturntoTown()
 {
+    cout << "You are heading out of this cave a changed individual. You have seen things, done things.\n"
+         << "With Charlie in tow and surprise, surprise the troll Frank showing up you get a glimpse\n"
+         << "of your new life. They call themselves the gruesome twosome. Frank leads you and Charlie back\n"
+         << "to town. Along the way he eats the cat food " << '(' << "dude real quick that was a great decision"
+         << ')' << ".\n" << " It's apparent that had he not been eating the cat food, you would have been on the\n"
+         << "menu. Frank mentions a sequel of some kind, no longer the gruesome twosome, but the UnHoly Trinity.\n"
+         << endl;
 
+    cout << " THANK YOU VERY MUCH FOR PLAYING!!! Congrats on the main win by the way.\n" << endl;
+
+    PlayAgain();
 }
 
 void NightmanGame::PlayAgain()
@@ -1139,7 +1168,7 @@ char NightmanGame::PlayerAnswer()
 
 void NightmanGame::GameOver()
 {
-    cout << "They say cream rises to the top. Or not.\n";
+    cout << "They say cream rises to the top. Or not.\n" << endl;
 
     player_hp_ = 0;
     Charlie_Is_Free = 1;
@@ -1155,7 +1184,7 @@ void NightmanGame::Puzzle()
     {
         puzzle_is_solved = 1;
 
-        cout << "Solved the riddle.\n" << endl;
+        cout << "You have solved the magical riddle.\n" << endl;
     }
     else
     {
@@ -1165,7 +1194,7 @@ void NightmanGame::Puzzle()
 
         if(player_answer_ == 'Y')
         {
-            //run puzzle function
+            Puzzle();
         }
         else
         {
@@ -1180,13 +1209,15 @@ char NightmanGame::StartFight(int Enemy)
 	{
 	case kRyanMcPoyle:
 		enemy_name_ = "Ryan McPoyle";
-		enemy_hp_ = 150;
+		enemy_hp_ = 125;
+		enemy_damage_ = 5;
 		cout << "Ryan steps forward to defend his brother's honor. Your can only wonder why he chose to wear\n"
              << "just a bathrobe'\n" << endl;
 		break;
 	case kLiamMcPoyle:
 		enemy_name_ = "Liam McPoyle";
-		enemy_hp_ = 150;
+		enemy_hp_ = 125;
+		enemy_damage_ = 5;
 		cout << "Liam steps forward to defend his brother's honor. Your can only wonder why he chose to wear\n"
              << "just a bathrobe'\n" << endl;
 		break;
@@ -1197,11 +1228,13 @@ char NightmanGame::StartFight(int Enemy)
 	case kSnail:
 		enemy_name_ = "Snail";
 		enemy_hp_ = 100;
+		enemy_damage_ = 2;
 		cout << "This is your chance. Rid the world of this garbage pail cousin, Gail, once and for all.\n" << endl;
 		break;
 	case kNightman:
 		enemy_name_ = "Nightman";
 		enemy_hp_ = 200;
+		enemy_damage_ = 6;
 		cout << "Hope you thought this through. He has the eyes of a cat.\n" << endl;
 		break;
 	}
@@ -1219,7 +1252,7 @@ char NightmanGame::StartFight(int Enemy)
 			HitEnemy();
 			break;
 		case 'N':
-			cout << "Terrible decision." << enemy_name_ << " hits you instead." << endl;
+			cout << "Terrible decision." << enemy_name_ << " hits you instead.\n" << endl;
 			HitPlayer();
 			break;
 		}
@@ -1228,7 +1261,7 @@ char NightmanGame::StartFight(int Enemy)
 
 	if(player_hp_ > 0 )
 	{
-		cout << "Dude! You smashed " << enemy_name_ << "'s" << " bitch ass good!\n" << endl;
+		cout << "Dude! You smashed " << enemy_name_ << "'s" << " b**** ass good!\n" << endl;
 
 		return 'W';
 	}
@@ -1247,22 +1280,22 @@ double NightmanGame::RollToHit()
 	switch(die_amount_)
 	{
 	case 1:
-		dam_mult_ = 2;
+		dam_mult_ = .5;
 		break;
 	case 2:
-		dam_mult_ = 3;
+		dam_mult_ = 1;
 		break;
 	case 3:
-		dam_mult_ = 4;
+		dam_mult_ = 1.5;
 		break;
 	case 4:
-		dam_mult_ = 5;
+		dam_mult_ = 2;
 		break;
 	case 5:
-		dam_mult_ = 6;
+		dam_mult_ = 2.5;
 		break;
 	case 6:
-		dam_mult_ = 7;
+		dam_mult_ = 3;
 		break;
     }
 
@@ -1273,10 +1306,9 @@ void NightmanGame::HitEnemy()
 {
     RollToHit();
 
-	//damage will be pulled in from weapon character has, for now damage is..
 	player_damage_ = 10;
 
-	player_damage_ = player_damage_ * dam_mult_;
+	player_damage_ = (player_damage_ + (player_damage_ * dam_mult_));
 
 	enemy_hp_ = enemy_hp_ - player_damage_;
 
@@ -1311,9 +1343,7 @@ void NightmanGame::HitPlayer()
 
 	RollToHit();
 
-	enemy_damage_ = 10;
-
-	enemy_damage_ = enemy_damage_ * dam_mult_;
+	enemy_damage_ = (enemy_damage_ + (enemy_damage_ * dam_mult_));
 
 	player_hp_ = player_hp_ - enemy_damage_;
 
@@ -1393,4 +1423,14 @@ void NightmanGame::CricksIsOut()
             current_room = 3;
         }
     }
+}
+
+void NightmanGame::ClearScreen()
+{
+#ifdef _WIN32
+    std::system("cls");
+#else
+    // Assume POSIX
+    std::system("clear");
+#endif
 }
