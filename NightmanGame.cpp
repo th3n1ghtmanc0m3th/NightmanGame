@@ -78,6 +78,9 @@ void NightmanGame::Start()
             break;
         }
     }
+
+    ReturntoTown();
+
     cout << "The game is over.\n";
 
 }
@@ -407,6 +410,8 @@ void NightmanGame::CricketRoom()
                 {
                     Cricket_dead = 1;
 
+                    cout << "What a jabroni, haha!\n" << endl;
+
                     CricksIsOut();
                 }
                 else
@@ -457,7 +462,6 @@ void NightmanGame::CricketRoom()
     }
     else
     {
-        //fix for dropped shiv
         if(player_has_shiv == 1)
         {
             cout << "Dude, Cricks is already unconscious or dead, who cares, but the point is. You got his shiv and this\n"
@@ -588,11 +592,14 @@ void NightmanGame::ArtemisBin()
 
             if(player_answer_ == 'Y')
             {
-                cout << "got salt.\n" << endl;
+                player_has_salt = 1;
+
+                cout << "You have obtained the salt. I would seriously consider leaving jabroni.\n" << endl;
+                //Run functions for non-school version. Artemis and Frank.
             }
             else
             {
-                cout << "no salt.\n" << endl;
+                cout << "No salt, nothing left for you here bozo.\n" << endl;
             }
         }
 
@@ -769,7 +776,7 @@ void NightmanGame::SnailTrail()
 {
     if(Snail_is_Alive == 1)
     {
-        cout << "It smells pathetic in here. That's not even a smell, but it is quite literally the only thing you can think.\n"
+        cout << "It smells pathetic in here. That's not even a smell, but it is quite literally the only thing that you can think.\n"
              << "Gail the Snail is here. The garbage pail cousin herself. Imagine if a turd grew to human size, took on a vaguely\n"
              << "human form and started to obnoxiously speak. That's Gail. Thats's the Snail.\n" << endl;
 
@@ -1013,7 +1020,13 @@ void NightmanGame::DennisChamber()
 
 void NightmanGame::NightmanChamber()
 {
-    cout << "Descrip for entering Nightman's Chamber.\n" << endl;
+    cout << "You have made it to the final cavern of this truly unspeakable nightmare. I mean honestly imagine your\n"
+         << "dreams now after the influence this game has reeked havoc upon them. But here you stand before another in\n"
+         << "a long line of bizarre and outrageous characters. The Nightman is going around making awkward" << '('
+         << "see:awesome" << ')' << "\n" << "movements. He is also speaking heavily to himself. You don't want to interrupt him, because\n"
+         << "it's from him that you are going to get the most information out of. It seems Frank, who by the way is a troll, has\n"
+         << "been luring people out here under the premise of freeing Charlie. He starts to say more but then notices you.\n"
+         << endl;
 
     if(Nightman_is_Alive == 1)
     {
@@ -1108,7 +1121,7 @@ void NightmanGame::CharliesCage()
         cout << "Ah dude, see this is great. This why we are gonna work well together. You see some cat food,\n"
              << "you see a denim chicken, you don't ask questions, you just pick it up.\n" << endl;
 
-        ReturntoTown();
+        Charlie_Is_Free = 1;
     }
     else if((player_answer_ == 'Y')&&(player_has_catfood == 0))
     {
@@ -1139,7 +1152,7 @@ void NightmanGame::ReturntoTown()
 
     cout << " THANK YOU VERY MUCH FOR PLAYING!!! Congrats on the main win by the way.\n" << endl;
 
-    PlayAgain();
+    Charlie_Is_Free = 1;
 }
 
 void NightmanGame::PlayAgain()
